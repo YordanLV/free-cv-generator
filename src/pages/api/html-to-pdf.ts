@@ -1,4 +1,3 @@
-import pdf from 'html-pdf';
 import juice from 'juice';
 import { NextApiRequest, NextApiResponse } from 'next';
 import fs from 'fs';
@@ -20,8 +19,6 @@ async function saveHtmlToPublicFolder(html) {
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
   const { html } = req.body; // Get the stringified HTML document and CSS file from the request body
 
   // Save the HTML to the public folder
@@ -36,29 +33,27 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   // Inline CSS styles into the HTML using the Juice library
   const inlinedHtml = juice(html);
 
-  // Define the options for html-pdf
-  const options = {
+  // Launch Puppeteer and create a new page
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  // Set the content of the page to the inlined HTML
+  await page.setContent(inlinedHtml, { waitUntil: 'networkidle0' });
+
+  // Emulate printer settings
+  await page.emulateMediaType('print');
+
+  // Generate a PDF from the page content
+  const pdfBuffer = await page.pdf({
     format: 'A4',
-    base: `file://${process.cwd()}/`,
-    header: {
-      height: '1cm'
-    },
-    footer: {
-      height: '1cm'
-    },
-  };
-
-  // Convert the HTML output into a PDF using html-pdf
-  pdf.create(inlinedHtml, options).toBuffer((err, buffer) => {
-    if (err) {
-      console.error(err);
-      res.status(500).end();
-      return;
-    }
-
-    // Send the PDF back as a response
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename="document.pdf"');
-    res.send(buffer);
+    printBackground: true,
   });
+
+  // Close the browser
+  await browser.close();
+
+  // Send the PDF back as a response
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename="document.pdf"');
+  res.send(pdfBuffer);
 }

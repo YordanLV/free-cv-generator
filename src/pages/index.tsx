@@ -54,13 +54,17 @@ const HomePage = () => {
       <div
         id="resume"
         style={{
+          fontFamily:
+            'Montserrat, Arial, Helvetica, "Noto Sans Devanagari", "Noto Sans CJK SC Thin", "Noto Sans SC", "Noto Sans Hebrew", sans-serif;',
           zIndex: "0",
           width: "21cm",
           height: "29.7cm",
           backgroundColor: "#ffffff",
-          padding: "1rem",
+          padding: "2.5rem",
           borderRadius: 8,
           boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
+          backgroundImage:
+            'url("https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg?w=2000&t=st=1681361795~exp=1681362395~hmac=895cef0595478fc36d06a721a3745c2f5cf70ea7d96d29d596e506e2c52825f8")',
         }}
       >
         <div
@@ -70,19 +74,41 @@ const HomePage = () => {
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: "2rem", fontWeight: "bold" }}>Your Name</div>
+          <div contentEditable style={{ fontSize: "2rem", fontWeight: "bold" }}>
+            Your Name
+          </div>
+          <div
+            contentEditable
+            style={{ fontSize: "1.25rem", fontWeight: "bold" }}
+          >
+            Occupation
+          </div>
         </div>
         <div
           style={{
+            fontSize: "2rem",
             marginTop: "1rem",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-            gap: "2rem",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-around",
           }}
         >
-          <span style={{ fontSize: "1rem" }}>Phone: xxx-xxx-xxx</span>
-          <span style={{ fontSize: "1rem" }}>Email: xxx-xxx-xxx</span>
-          <span style={{ fontSize: "1rem" }}>Website: xxx-xxx-xxx</span>
+          <span
+            style={{ display: "flex", alignItems: "center", fontSize: "1rem" }}
+          >
+            <FiPhone />
+            <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+          </span>
+          <span
+            style={{ display: "flex", alignItems: "center", fontSize: "1rem" }}
+          >
+            <FiMail /> <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+          </span>
+          <span
+            style={{ display: "flex", alignItems: "center", fontSize: "1rem" }}
+          >
+            <FiLink /> <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+          </span>
         </div>
         <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
           <div style={{ width: "100%" }}>

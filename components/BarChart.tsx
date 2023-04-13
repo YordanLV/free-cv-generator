@@ -21,6 +21,7 @@ export const data = [
 
 export const options = {
   title: "Density of Precious Metals, in g/cm^3",
+  backgroundColor: "transparent",
   width: 600,
   height: 400,
   bar: { groupWidth: "95%" },

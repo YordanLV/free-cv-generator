@@ -9,6 +9,7 @@ export const data = [
 
 export const options = {
   is3D: true,
+  backgroundColor: "transparent",
 };
 
 export default function Pie() {
