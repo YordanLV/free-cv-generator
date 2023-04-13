@@ -1,4 +1,7 @@
 /* styles.css */
+body {
+  font-family: 'Brush Script MT', cursive;
+}
 .resume {
   z-index: 0;
   width: 21cm;

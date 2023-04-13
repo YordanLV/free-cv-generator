@@ -19,6 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         height: '1cm',
       },
     };
+    
 
     pdf.create(html, options).toBuffer((err, buffer) => {
       if (err) {
