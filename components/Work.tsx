@@ -1,3 +1,4 @@
+import WorkItem from "./WorkItem";
 import React, { useState } from "react";
 
 interface Item {
@@ -7,9 +8,17 @@ interface Item {
 
 const App: React.FC = () => {
   const [items, setItems] = useState<Record<string, string[]>>({
-    column1: ["Item 1", "Item 2", "Item 3"],
-    column2: ["Item 4", "Item 5", "Item 6"],
-    column3: ["Item 7", "Item 8", "Item 9"],
+    column1: [
+      "Number 1",
+      "Number 2",
+      "Number 3",
+      "Number 4",
+      "Number 5",
+      "Number 6",
+      "Number 7",
+      "Number 8",
+      "Number 9",
+    ],
   });
 
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
@@ -25,12 +34,18 @@ const App: React.FC = () => {
 
   const handleDrop = (
     e: React.DragEvent<HTMLDivElement>,
-    targetColumn: string
+    targetColumn: string,
+    targetIndex: number
   ) => {
     if (draggedItem) {
       const newItems = { ...items };
-      const item = newItems[draggedItem.column].splice(draggedItem.index, 1)[0];
-      newItems[targetColumn].push(item);
+
+      // Swap the dragged item with the target item
+      const temp = newItems[draggedItem.column][draggedItem.index];
+      newItems[draggedItem.column][draggedItem.index] =
+        newItems[targetColumn][targetIndex];
+      newItems[targetColumn][targetIndex] = temp;
+
       setItems(newItems);
       setDraggedItem(null);
     }
@@ -44,19 +59,18 @@ const App: React.FC = () => {
     <div className="App">
       <div className="columns">
         {Object.keys(items).map((column) => (
-          <div
-            key={column}
-            onDrop={(e) => handleDrop(e, column)}
-            onDragOver={handleDragOver}
-          >
+          <div key={column} onDragOver={handleDragOver}>
             <h2>{column}</h2>
             {items[column].map((item, index) => (
               <div
                 key={`${column}-${index}`}
                 draggable
                 onDragStart={(e) => handleDragStart(e, column, index)}
+                onDrop={(e) => handleDrop(e, column, index)}
               >
-                {item}
+                <div>
+                  {item} <WorkItem />
+                </div>
               </div>
             ))}
           </div>

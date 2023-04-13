@@ -3,7 +3,7 @@ import useCurrentUrl from "../../hooks/useCurrentUrl";
 import dynamic from "next/dynamic";
 import A4Div from "../../components/A4Div";
 import A4container from "../../components/A4Div";
-import Columns from "../../components/Column";
+import Columns from "../../components/Work";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
 
 const DownloadClientSide = dynamic(

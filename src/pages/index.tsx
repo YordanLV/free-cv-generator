@@ -2,10 +2,13 @@ import { useState } from "react";
 import useCurrentUrl from "../../hooks/useCurrentUrl";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Column from "../../components/Column";
+import Column from "../../components/Work";
 import Pie from "../../components/Pie";
 import BarChart from "../../components/BarChart";
 import Block from "../../components/Block";
+import DraggableComponent from "../../components/DraggableComponent";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 const DownloadClientSide = dynamic(
   () => import("../../components/DownloadClientSide"),
@@ -49,7 +52,13 @@ const HomePage = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <h1>Home Page</h1>
       <div
         id="resume"

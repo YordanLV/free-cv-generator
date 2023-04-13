@@ -7,9 +7,17 @@ interface Item {
 
 const App: React.FC = () => {
   const [items, setItems] = useState<Record<string, string[]>>({
-    column1: ["Item 1", "Item 2", "Item 3"],
-    column2: ["Item 4", "Item 5", "Item 6"],
-    column3: ["Item 7", "Item 8", "Item 9"],
+    column1: [
+      "Number 1",
+      "Number 2",
+      "Number 3",
+      "Number 4",
+      "Number 5",
+      "Number 6",
+      "Number 7",
+      "Number 8",
+      "Number 9",
+    ],
   });
 
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
@@ -56,7 +64,7 @@ const App: React.FC = () => {
                 draggable
                 onDragStart={(e) => handleDragStart(e, column, index)}
               >
-                {item}
+                <div>{item}</div>
               </div>
             ))}
           </div>

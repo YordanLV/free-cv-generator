@@ -6,10 +6,12 @@ interface Item {
 }
 
 const App: React.FC = () => {
-  const [items, setItems] = useState<Record<string, string[]>>({
-    column1: ["Item 1", "Item 2", "Item 3"],
-    column2: ["Item 4", "Item 5", "Item 6"],
-    column3: ["Item 7", "Item 8", "Item 9"],
+  const [items, setItems] = useState({
+    column1: [
+      <WorkItem style={{ zIndex: 30, opacity: 0.5 }} />,
+      <WorkItem style={{ zIndex: 30, opacity: 0.5 }} />,
+      <WorkItem style={{ zIndex: 30, opacity: 0.5 }} />,
+    ],
   });
 
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
