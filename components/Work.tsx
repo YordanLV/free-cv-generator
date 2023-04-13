@@ -6,18 +6,20 @@ interface Item {
   index: number;
 }
 
+interface ItemData {
+  content: string;
+  date: string;
+}
+
 const App: React.FC = () => {
-  const [items, setItems] = useState<Record<string, string[]>>({
+  const [items, setItems] = useState<Record<string, ItemData[]>>({
     column1: [
-      "Number 1",
-      "Number 2",
-      "Number 3",
-      "Number 4",
-      "Number 5",
-      "Number 6",
-      "Number 7",
-      "Number 8",
-      "Number 9",
+      {
+        content: "Number 1",
+        data: { title: "My Dick" },
+        date: new Date().toISOString(),
+      },
+      { content: "Number 2", date: new Date().toISOString() },
     ],
   });
 
@@ -46,6 +48,9 @@ const App: React.FC = () => {
         newItems[targetColumn][targetIndex];
       newItems[targetColumn][targetIndex] = temp;
 
+      // Update the date of the target item
+      newItems[targetColumn][targetIndex].date = new Date().toISOString();
+
       setItems(newItems);
       setDraggedItem(null);
     }
@@ -60,16 +65,24 @@ const App: React.FC = () => {
       <div className="columns">
         {Object.keys(items).map((column) => (
           <div key={column} onDragOver={handleDragOver}>
-            <h2>{column}</h2>
             {items[column].map((item, index) => (
               <div
                 key={`${column}-${index}`}
+                style={{ position: "relative", cursor: "pointer" }}
                 draggable
                 onDragStart={(e) => handleDragStart(e, column, index)}
                 onDrop={(e) => handleDrop(e, column, index)}
               >
+                <div
+                  style={{ position: "absolute", top: 30, left: -20 }}
+                  onDragStart={(e) => handleDragStart(e, column, index)}
+                  onDrop={(e) => handleDrop(e, column, index)}
+                >
+                  <img height="20px" src="/more.svg" alt="draggable" />
+                </div>
                 <div>
-                  {item} <WorkItem />
+                  {item.content}{" "}
+                  <WorkItem key={item.content} data={item.data} />
                 </div>
               </div>
             ))}

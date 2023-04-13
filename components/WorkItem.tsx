@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
 
-export default function WorkItem({ style }) {
+export default function WorkItem({ style, data }) {
   const { register } = useForm();
+  console.log(data?.title);
   return (
     <div>
       <input
         {...register("title")}
         placeholder="Title"
+        value={data?.title}
         style={{
           ...style,
           ...{

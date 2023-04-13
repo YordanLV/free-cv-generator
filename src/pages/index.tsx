@@ -60,11 +60,18 @@ const HomePage = () => {
       }}
     >
       <h1>Home Page</h1>
+      <DownloadClientSide />
+      <button
+        style={{ marginTop: "1rem" }}
+        onClick={downloadPdf}
+        disabled={isLoading}
+      >
+        {isLoading ? "Loading..." : "Download PDF"}
+      </button>
       <div
         id="resume"
         style={{
-          fontFamily:
-            'Montserrat, Arial, Helvetica, "Noto Sans Devanagari", "Noto Sans CJK SC Thin", "Noto Sans SC", "Noto Sans Hebrew", sans-serif;',
+          fontFamily: "Verdana,Geneva,sans-serif;",
           zIndex: "0",
           width: "21cm",
           height: "29.7cm",
@@ -135,14 +142,6 @@ const HomePage = () => {
           <BarChart />
         </Block>
       </div>
-      <DownloadClientSide />
-      <button
-        style={{ marginTop: "1rem" }}
-        onClick={downloadPdf}
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Download PDF"}
-      </button>
     </div>
   );
 };

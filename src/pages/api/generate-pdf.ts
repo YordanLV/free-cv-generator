@@ -19,10 +19,10 @@ const saveAsPdf = async () => {
     format: 'a4',
     printBackground: true,
     margin: {
-      top: '1cm',
-      right: '1cm',
-      bottom: '1cm',
-      left: '1cm',
+      top: '3cm',
+      right: '3cm',
+      bottom: '3cm',
+      left: '3cm',
     },
   });
 
