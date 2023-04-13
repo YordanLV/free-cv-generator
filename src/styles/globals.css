@@ -1,10 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* styles.css */
+.resume {
+  z-index: 0;
+  width: 21cm;
+  height: 29.7cm;
+  background-color: #ffffff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
 
-.App {
-  font-family: sans-serif;
-  text-align: center;
-  height: 100vh;
+.name {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.contact-group {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.phone-icon,
+.email-icon,
+.link-icon {
+  font-size: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.hr {
   width: 100%;
+}
+
+.skills-block {
+  margin-top: 1rem;
+}
+
+.heading {
+  font-size: 2rem;
+}
+
+.download-btn {
+  margin-top: 1rem;
 }

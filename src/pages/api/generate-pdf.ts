@@ -1,33 +1,43 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import puppeteer from 'puppeteer';
 
-
-const saveAsPdf = async (url: string) => {
+const saveAsPdf = async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
 
-  await page.goto(url, {
-      waitUntil: 'networkidle0'
-    });
+  await page.goto("http://localhost:3000/", {
+    waitUntil: 'networkidle0',
+  });
+
+  await page.evaluate(() => {
+    const selectedElement = document.querySelector("#resume")?.outerHTML;
+    // @ts-ignore
+    document.querySelector("#resume").outerHTML = selectedElement;
+  });               
 
   const result = await page.pdf({
     format: 'a4',
+    printBackground: true,
+    margin: {
+      top: '1cm',
+      right: '1cm',
+      bottom: '1cm',
+      left: '1cm',
+    },
   });
+
   await browser.close();
 
   return result;
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { url } = req.query; // pass the page to create PDF from as param
+  const { url } = req.query as { url: string };
 
-  res.setHeader(
-    'Content-Disposition',
-    `attachment; filename="file.pdf"`
-  );
+  res.setHeader('Content-Disposition', `attachment; filename="file.pdf"`);
   res.setHeader('Content-Type', 'application/pdf');
 
-  const pdf = await saveAsPdf(url as string);
+  const pdf = await saveAsPdf(url);
 
-  return res.send(pdf)
-}
+  return res.send(pdf);
+};
