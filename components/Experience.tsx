@@ -1,5 +1,4 @@
-import Draggable from "../src/svgs/draggable";
-import WorkItem from "./WorkItem";
+import ExperienceItem from "./ExperienceItem";
 import React, { useState } from "react";
 
 interface Item {
@@ -13,7 +12,7 @@ interface ItemData {
 }
 
 const App: React.FC = () => {
-  const [items, setItems] = useState<Record<string, ItemData[]>>({
+  const [items, setItems] = useState({
     column1: [
       {
         content: "Number 1",
@@ -72,14 +71,20 @@ const App: React.FC = () => {
                 style={{
                   position: "relative",
                   cursor: "pointer",
+                  borderBottom: "0.25rem dashed #dedcdc",
+                  marginBottom: "1rem",
                 }}
                 draggable
                 onDragStart={(e) => handleDragStart(e, column, index)}
                 onDrop={(e) => handleDrop(e, column, index)}
               >
                 <div>
-                  {item.content}{" "}
-                  <WorkItem key={item.content} data={item.data} />
+                  <h5>{item.content}</h5>
+                  <ExperienceItem
+                    key={item.content}
+                    data={item.data}
+                    style={undefined}
+                  />
                 </div>
               </div>
             ))}

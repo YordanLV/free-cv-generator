@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Column from "../../components/Work";
+import Experience from "../../components/Experience";
 import Pie from "../../components/Pie";
 import BarChart from "../../components/BarChart";
 import Block from "../../components/Block";
 import BackgroundNav from "../../components/BackgroundNav";
 import A4Page from "../../components/A4Page";
 import TitleWithBr from "../../components/TitleWithBr";
+import RichTextArea from "../../components/RichTextArea";
 
 const DownloadClientSide = dynamic(
   () => import("../../components/DownloadClientSide"),
@@ -20,7 +21,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [bgImg, setBgImg] = useState("");
 
-  const onSetBgImg = (imgUrl) => {
+  const onSetBgImg = (imgUrl: SetStateAction<string>) => {
     setBgImg(imgUrl);
   };
 
@@ -80,12 +81,12 @@ const HomePage = () => {
             style={{
               display: "flex",
               flexDirection: "column",
-              textAlign: "center",
+              textAlign: "left",
             }}
           >
             <div
               contentEditable
-              style={{ fontSize: "2rem", fontWeight: "bold" }}
+              style={{ fontSize: "2.5rem", fontWeight: "bold" }}
             >
               Your Name
             </div>
@@ -102,7 +103,7 @@ const HomePage = () => {
               marginTop: "1rem",
               display: "flex",
               flexDirection: "row",
-              justifyContent: "space-around",
+              justifyContent: "space-between",
             }}
           >
             <span
@@ -136,15 +137,16 @@ const HomePage = () => {
               <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
             </span>
           </div>
-          <TitleWithBr sectionTitle="Work">
-            <Column />
+          <TitleWithBr sectionTitle="RELEVANT EXPERIENCE">
+            <Experience />
           </TitleWithBr>
-          <Block title="Skills">
+          <RichTextArea />
+          {/* <Block title="Skills">
             <Pie />
           </Block>
           <Block title="Skills">
             <BarChart />
-          </Block>
+          </Block> */}
         </A4Page>
       </div>
     </div>

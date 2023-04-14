@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import RichTextArea from "./RichTextArea";
 
 export default function WorkItem({ style, data }) {
   const { register } = useForm();
@@ -50,24 +51,7 @@ export default function WorkItem({ style, data }) {
         }}
         type="text"
       />
-      <div
-        {...register("responsibilities")}
-        contentEditable
-        onClick={() => setDivPlaceholder(false)}
-        placeholder="What were your day-to-day responsibilities?"
-        style={{
-          ...style,
-          ...{
-            marginTop: "0.25rem",
-            width: "100%",
-            fontSize: "1rem",
-            border: 0,
-            backgroundColor: "transparent",
-          },
-        }}
-      >
-        {divPlaceholder && "Show me what you got"}
-      </div>
+      <RichTextArea />
     </div>
   );
 }
