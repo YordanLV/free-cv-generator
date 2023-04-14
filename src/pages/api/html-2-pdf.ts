@@ -1,39 +1,31 @@
-import pdf from 'html-pdf';
-import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs/promises';
-import path from 'path';
+// pages/api/exportToPdf.js
+import puppeteer from 'puppeteer';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const filePath = path.join(process.cwd(), 'public', 'savedHtml.html');
+export default async (req, res) => {
+  // Render the PDF with Puppeteer
+  const pdfBuffer = await renderPdf();
 
-  try {
-    const html = await fs.readFile(filePath, 'utf8');
+  // Set the appropriate headers
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=export.pdf');
 
-    const options = {
-      format: 'A4',
-      base: `file://${process.cwd()}/`,
-      header: {
-        height: '1cm',
-      },
-      footer: {
-        height: '1cm',
-      },
-    };
-    
+  // Send the PDF buffer as a response
+  res.send(pdfBuffer);
+};
 
-    pdf.create(html, options).toBuffer((err, buffer) => {
-      if (err) {
-        console.error(err);
-        res.status(500).end();
-        return;
-      }
+async function renderPdf() {
+  // Launch Puppeteer
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
 
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename="document.pdf"');
-      res.send(buffer);
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error reading HTML file');
-  }
+  // Load the HTML file from the public folder
+  const htmlFilePath = 'file://' + process.cwd() + '/public/export.html';
+  await page.goto(htmlFilePath, { waitUntil: 'networkidle0' });
+
+  // Convert the page to a PDF buffer
+  const pdfBuffer = await page.pdf({ format: 'A4' });
+
+  // Close the browser and return the PDF buffer
+  await browser.close();
+  return pdfBuffer;
 }

@@ -1,3 +1,4 @@
+import Draggable from "../src/svgs/draggable";
 import WorkItem from "./WorkItem";
 import React, { useState } from "react";
 
@@ -68,18 +69,14 @@ const App: React.FC = () => {
             {items[column].map((item, index) => (
               <div
                 key={`${column}-${index}`}
-                style={{ position: "relative", cursor: "pointer" }}
+                style={{
+                  position: "relative",
+                  cursor: "pointer",
+                }}
                 draggable
                 onDragStart={(e) => handleDragStart(e, column, index)}
                 onDrop={(e) => handleDrop(e, column, index)}
               >
-                <div
-                  style={{ position: "absolute", top: 30, left: -20 }}
-                  onDragStart={(e) => handleDragStart(e, column, index)}
-                  onDrop={(e) => handleDrop(e, column, index)}
-                >
-                  <img height="20px" src="/more.svg" alt="draggable" />
-                </div>
                 <div>
                   {item.content}{" "}
                   <WorkItem key={item.content} data={item.data} />

@@ -1,59 +1,58 @@
-import juice from 'juice';
+// pages/api/export-pdf.js
 import { NextApiRequest, NextApiResponse } from 'next';
-import fs from 'fs';
-import path from 'path';
 import puppeteer from 'puppeteer';
 
-// Function to save HTML to the public folder
-async function saveHtmlToPublicFolder(html) {
-  const filePath = path.join(process.cwd(), 'public', 'savedHtml.html');
-  return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, html, (err) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve();
-      }
-    });
-  });
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { html } = req.body; // Get the stringified HTML document and CSS file from the request body
-
-  // Save the HTML to the public folder
-  try {
-    await saveHtmlToPublicFolder(html);
-  } catch (err) {
-    console.error(err);
-    res.status(500).end();
+export default async function exportPdf(req, res) {
+  if (req.method !== 'POST') {
+    res.status(405).json({ message: 'Only POST requests are allowed' });
     return;
   }
 
-  // Inline CSS styles into the HTML using the Juice library
-  const inlinedHtml = juice(html);
+  const { html } = req.body;
 
-  // Launch Puppeteer and create a new page
-  const browser = await puppeteer.launch();
-  const page = await browser.newPage();
+  if (!html) {
+    res.status(400).json({ message: 'htmlContent is required' });
+    return;
+  }
 
-  // Set the content of the page to the inlined HTML
-  await page.setContent(inlinedHtml, { waitUntil: 'networkidle0' });
+  try {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
 
-  // Emulate printer settings
-  await page.emulateMediaType('print');
+    const htmlTemplate = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Export PDF</title>
+      </head>
+      <style>
+      #resume {
+        border-radius: 0!important;
+        box-shadow: none!important;
+      }
+      </style>
+      <body>
+        ${html}
+      </body>
+      </html>
+    `;
 
-  // Generate a PDF from the page content
-  const pdfBuffer = await page.pdf({
-    format: 'A4',
-    printBackground: true,
-  });
+    await page.setContent(htmlTemplate, { waitUntil: 'networkidle0' });
 
-  // Close the browser
-  await browser.close();
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      printBackground: true,
+      margin: { top: '0cm', right: '0cm', bottom: '0cm', left: '0cm' },
+    });
 
-  // Send the PDF back as a response
-  res.setHeader('Content-Type', 'application/pdf');
-  res.setHeader('Content-Disposition', 'attachment; filename="document.pdf"');
-  res.send(pdfBuffer);
+    await browser.close();
+
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'attachment; filename=exported.pdf');
+    res.status(200).send(pdfBuffer);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 }

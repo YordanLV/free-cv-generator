@@ -1,10 +1,12 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export default function WorkItem({ style, data }) {
   const { register } = useForm();
-  console.log(data?.title);
+  const [divPlaceholder, setDivPlaceholder] = useState(true);
+
   return (
-    <div>
+    <div style={{ marginBottom: "0.75rem" }}>
       <input
         {...register("title")}
         placeholder="Title"
@@ -51,17 +53,21 @@ export default function WorkItem({ style, data }) {
       <div
         {...register("responsibilities")}
         contentEditable
+        onClick={() => setDivPlaceholder(false)}
         placeholder="What were your day-to-day responsibilities?"
         style={{
           ...style,
           ...{
+            marginTop: "0.25rem",
             width: "100%",
             fontSize: "1rem",
             border: 0,
             backgroundColor: "transparent",
           },
         }}
-      ></div>
+      >
+        {divPlaceholder && "Show me what you got"}
+      </div>
     </div>
   );
 }

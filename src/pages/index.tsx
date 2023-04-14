@@ -1,12 +1,13 @@
 import { useState } from "react";
-import useCurrentUrl from "../../hooks/useCurrentUrl";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
 import Column from "../../components/Work";
 import Pie from "../../components/Pie";
 import BarChart from "../../components/BarChart";
 import Block from "../../components/Block";
-import SideNav from "../../components/SideNav";
+import BackgroundNav from "../../components/BackgroundNav";
+import A4Page from "../../components/A4Page";
+import TitleWithBr from "../../components/TitleWithBr";
 
 const DownloadClientSide = dynamic(
   () => import("../../components/DownloadClientSide"),
@@ -29,7 +30,7 @@ const HomePage = () => {
     fetch("/api/html-to-pdf", {
       method: "POST",
       body: JSON.stringify({
-        html: document.querySelector("#resume")?.innerHTML,
+        html: document.querySelector("#resume")?.outerHTML,
       }), // Send the stringified HTML document in the request body
       headers: {
         "Content-Type": "application/json",
@@ -62,7 +63,7 @@ const HomePage = () => {
       }}
     >
       <div style={{ position: "absolute", left: 20, top: 200 }}>
-        <SideNav onSetBgImg={onSetBgImg} />
+        <BackgroundNav onSetBgImg={onSetBgImg} />
       </div>
       <h1>Home Page</h1>
       <DownloadClientSide />
@@ -74,24 +75,7 @@ const HomePage = () => {
         {isLoading ? "Loading..." : "Download PDF"}
       </button>
       <div className="relative">
-        <div
-          id="resume"
-          style={{
-            fontFamily: "Verdana,Geneva,sans-serif;",
-            zIndex: "0",
-            width: "21cm",
-            height: "29.7cm",
-            backgroundColor: "#ffffff",
-            padding: "2.5rem",
-            borderRadius: 8,
-            boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
-            backgroundSize: "cover",
-            backgroundRepeat: "none",
-            backgroundImage: bgImg
-              ? `url(${bgImg})`
-              : "url(https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg?w=2000&t=st=1681361795~exp=1681362395~hmac=895cef0595478fc36d06a721a3745c2f5cf70ea7d96d29d596e506e2c52825f8)",
-          }}
-        >
+        <A4Page bgImg={bgImg}>
           <div
             style={{
               display: "flex",
@@ -152,22 +136,16 @@ const HomePage = () => {
               <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
             </span>
           </div>
-          <div style={{ display: "flex", gap: "0.5rem", marginTop: "1rem" }}>
-            <div style={{ width: "100%" }}>
-              <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
-                Experience
-              </h2>
-              <hr style={{ width: "100%" }} />
-              <Column />
-            </div>
-          </div>
+          <TitleWithBr sectionTitle="Work">
+            <Column />
+          </TitleWithBr>
           <Block title="Skills">
             <Pie />
           </Block>
           <Block title="Skills">
             <BarChart />
           </Block>
-        </div>
+        </A4Page>
       </div>
     </div>
   );

@@ -2,74 +2,31 @@
 import React, { useRef, useState, useEffect, ReactNode } from "react";
 
 interface A4PageProps {
+  bgImg: string;
   children: ReactNode;
 }
 
-const A4Page: React.FC<A4PageProps> = ({ children }) => {
-  const [pages, setPages] = useState<number[]>([]);
-  const contentRef = useRef<HTMLDivElement>(null);
-
-  const A4PageStyle = {
-    width: "210mm",
-    height: "297mm",
-    padding: "20mm",
-    border: "1px solid #000",
-    boxSizing: "border-box",
-    position: "relative",
-    pageBreakAfter: "always",
-    overflow: "hidden",
-  };
-
-  const A4PageContentStyle = {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    overflow: "hidden",
-  };
-
-  useEffect(() => {
-    if (contentRef.current) {
-      const contentHeight = contentRef.current.scrollHeight;
-      const numPages = Math.ceil(contentHeight / (297 - 40));
-
-      setPages(Array.from({ length: numPages }, (_, i) => i));
-    }
-  }, [children]);
-
+const A4Page: React.FC<A4PageProps> = ({ bgImg, children }) => {
   return (
-    <div>
-      {pages.map((_, pageIndex) => (
-        <div
-          key={pageIndex}
-          style={{
-            width: "210mm",
-            height: "297mm",
-            padding: "20mm",
-            border: "1px solid #000",
-            boxSizing: "border-box",
-            position: "relative",
-            pageBreakAfter: "always",
-            overflow: "hidden",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              overflow: "hidden",
-              transform: `translateY(-${pageIndex * (297 - 40)}mm)`,
-            }}
-            ref={pageIndex === 0 ? contentRef : null}
-          >
-            {children}
-          </div>
-        </div>
-      ))}
+    <div
+      id="resume"
+      style={{
+        fontFamily: "Verdana,Geneva,sans-serif;",
+        zIndex: "0",
+        width: "21cm",
+        height: "29.7cm",
+        backgroundColor: "#ffffff",
+        padding: "2.5rem",
+        borderRadius: 8,
+        boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
+        backgroundSize: "cover",
+        backgroundRepeat: "none",
+        backgroundImage: bgImg
+          ? `url(${bgImg})`
+          : "url(https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg?w=2000&t=st=1681361795~exp=1681362395~hmac=895cef0595478fc36d06a721a3745c2f5cf70ea7d96d29d596e506e2c52825f8)",
+      }}
+    >
+      {children}
     </div>
   );
 };
