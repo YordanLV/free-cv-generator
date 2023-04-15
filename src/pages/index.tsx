@@ -9,6 +9,8 @@ import BackgroundNav from "../../components/BackgroundNav";
 import A4Page from "../../components/A4Page";
 import TitleWithBr from "../../components/TitleWithBr";
 import RichTextArea from "../../components/RichTextArea";
+import ContentEditableWithPlaceholder from "../../components/ContentEditableWithPlaceholder";
+import { nameStyle, occupationStyle } from "../styles/styles";
 
 const DownloadClientSide = dynamic(
   () => import("../../components/DownloadClientSide"),
@@ -84,18 +86,14 @@ const HomePage = () => {
               textAlign: "left",
             }}
           >
-            <div
-              contentEditable
-              style={{ fontSize: "2.5rem", fontWeight: "bold" }}
-            >
-              Your Name
-            </div>
-            <div
-              contentEditable
-              style={{ fontSize: "1.25rem", fontWeight: "bold" }}
-            >
-              Occupation
-            </div>
+            <ContentEditableWithPlaceholder
+              placeholder="Your Name"
+              inputStyle={nameStyle}
+            />
+            <ContentEditableWithPlaceholder
+              placeholder="Occupation"
+              inputStyle={occupationStyle}
+            />
           </div>
           <div
             style={{
