@@ -13,4 +13,11 @@ export const occupationStyle = {
     fontSize: "1.25rem",
     fontWeight: "bold",
   };
+
+  export const colorCirclesStyle = {
+    borderRadius: "50%",
+    width: "25px",
+    height: "25px",
+    border: "1px solid black",
+  }
   

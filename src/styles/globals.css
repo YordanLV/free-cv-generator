@@ -50,3 +50,7 @@ body {
 .download-btn {
   margin-top: 1rem;
 }
+
+.rs-dropdown-item {
+  padding: 0!important;
+}

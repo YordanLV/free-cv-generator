@@ -6,6 +6,8 @@ import MagicIcon from "@rsuite/icons/legacy/Magic";
 import GearCircleIcon from "@rsuite/icons/legacy/GearCircle";
 import convertImageToBase64 from "../utils/imageToBase64";
 import "rsuite/dist/rsuite.css";
+import colorSchemes from "../src/theme/colorSchemes";
+import { colorCirclesStyle } from "../src/styles/styles";
 
 const bgFiles = ["1.jpg", "2.jpg", "3.jpg", "5.jpg", "6.jpg"];
 
@@ -38,10 +40,56 @@ const SideNav = ({ onSetBgImg }: SideNav) => (
                       objectFit: "cover",
                       border: "2px solid black",
                       width: "100%",
+                      marginBottom: "1rem",
                     }}
                     height={250}
                     src={`background/${bg}`}
                   />{" "}
+                </Nav.Item>
+              );
+            })}
+          </Nav.Menu>
+          <Nav.Menu eventKey="5" title="Colors" icon={<GearCircleIcon />}>
+            {colorSchemes.map((colors) => {
+              return (
+                <Nav.Item eventKey="5-1" key={colors.name}>
+                  <div style={{ padding: "0 1rem", marginBottom: "1rem" }}>
+                    <div
+                      style={{
+                        margin: "0.5rem 0",
+                        fontWeight: "bold",
+                        borderBottom: "1px solid black",
+                      }}
+                    >
+                      {colors.name}
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "0.5rem",
+                      }}
+                    >
+                      <div
+                        style={{
+                          backgroundColor: colors.primary,
+                          ...colorCirclesStyle,
+                        }}
+                      />
+                      <div
+                        style={{
+                          backgroundColor: colors.secondary,
+                          ...colorCirclesStyle,
+                        }}
+                      />
+                      <div
+                        style={{
+                          backgroundColor: colors.alternative,
+                          ...colorCirclesStyle,
+                        }}
+                      />
+                    </div>
+                  </div>
                 </Nav.Item>
               );
             })}
