@@ -65,29 +65,34 @@ const App: React.FC = () => {
       <div className="columns">
         {Object.keys(items).map((column) => (
           <div key={column} onDragOver={handleDragOver}>
-            {items[column].map((item, index) => (
-              <div
-                key={`${column}-${index}`}
-                style={{
-                  position: "relative",
-                  cursor: "pointer",
-                  borderBottom: "0.25rem dashed #dedcdc",
-                  marginBottom: "1rem",
-                }}
-                draggable
-                onDragStart={(e) => handleDragStart(e, column, index)}
-                onDrop={(e) => handleDrop(e, column, index)}
-              >
-                <div>
-                  <h5>{item.content}</h5>
-                  <ExperienceItem
-                    key={item.content}
-                    data={item.data}
-                    style={undefined}
-                  />
+            {items[column].map((item, index) => {
+              return (
+                <div
+                  key={`${column}-${index}`}
+                  style={{
+                    position: "relative",
+                    cursor: "pointer",
+                    borderBottom:
+                      index + 1 === items[column].length
+                        ? "none"
+                        : "0.25rem dashed #dedcdc",
+                    marginBottom: "1rem",
+                  }}
+                  draggable
+                  onDragStart={(e) => handleDragStart(e, column, index)}
+                  onDrop={(e) => handleDrop(e, column, index)}
+                >
+                  <div>
+                    <h5>{item.content}</h5>
+                    <ExperienceItem
+                      key={item.content}
+                      data={item.data}
+                      style={undefined}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         ))}
       </div>

@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { Sidenav, Nav } from "rsuite";
 import DashboardIcon from "@rsuite/icons/legacy/Dashboard";
 import GroupIcon from "@rsuite/icons/legacy/Group";
@@ -15,7 +14,7 @@ type SideNav = {
   onSetBgImg: any;
 };
 
-const SideNav = ({ onSetBgImg }: SideNav) => (
+const MainNav = ({ onSetBgImg }: SideNav) => (
   <div style={{ width: 240 }}>
     <Sidenav defaultOpenKeys={["3", "4"]}>
       <Sidenav.Body>
@@ -109,4 +108,4 @@ const SideNav = ({ onSetBgImg }: SideNav) => (
   </div>
 );
 
-export default SideNav;
+export default MainNav;

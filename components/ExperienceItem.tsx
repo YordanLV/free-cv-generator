@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import RichTextArea from "./RichTextArea";
+import FormatContenteditable from "./FormatContenteditable";
 
-export default function WorkItem({ style, data }) {
+export default function WorkItem({ style, data }: any) {
   const { register } = useForm();
   const [divPlaceholder, setDivPlaceholder] = useState(true);
 
@@ -51,7 +51,7 @@ export default function WorkItem({ style, data }) {
         }}
         type="text"
       />
-      <RichTextArea />
+      <FormatContenteditable />
     </div>
   );
 }

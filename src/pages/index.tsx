@@ -3,14 +3,14 @@ import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
 import Experience from "../../components/Experience";
 import Pie from "../../components/Pie";
-import BarChart from "../../components/BarChart";
-import Block from "../../components/Block";
-import BackgroundNav from "../../components/BackgroundNav";
 import A4Page from "../../components/A4Page";
 import TitleWithBr from "../../components/TitleWithBr";
-import RichTextArea from "../../components/RichTextArea";
-import ContentEditableWithPlaceholder from "../../components/ContentEditableWithPlaceholder";
+import FormatContenteditable from "../../components/FormatContenteditable";
 import { nameStyle, occupationStyle } from "../styles/styles";
+import MainNav from "../../components/MainNav";
+import ArrangmentBoard from "../../components/ArrangmentBoard";
+import Skills from "../../components/Skills";
+import ContentEditableWithPlaceholder from "../../components/ContentEditableWithPlaceholder";
 
 const DownloadClientSide = dynamic(
   () => import("../../components/DownloadClientSide"),
@@ -66,7 +66,8 @@ const HomePage = () => {
       }}
     >
       <div style={{ position: "absolute", left: 20, top: 200 }}>
-        <BackgroundNav onSetBgImg={onSetBgImg} />
+        <MainNav onSetBgImg={onSetBgImg} />
+        <ArrangmentBoard />
       </div>
       <h1>Home Page</h1>
       <DownloadClientSide />
@@ -138,7 +139,9 @@ const HomePage = () => {
           <TitleWithBr sectionTitle="RELEVANT EXPERIENCE">
             <Experience />
           </TitleWithBr>
-          <RichTextArea />
+          {/* <TitleWithBr sectionTitle="SKILLS">
+            <TextArea />
+          </TitleWithBr> */}
           {/* <Block title="Skills">
             <Pie />
           </Block>
