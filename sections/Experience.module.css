@@ -2,3 +2,16 @@
     font-size: 1.25rem;
     font-weight: bold;
 }
+
+.aboveOverlay {
+    position: relative;
+    z-index: 1000;
+    display: block;
+    z-index: 1000;
+    outline: 0vh solid rgba(0, 0, 0, 0);
+    transition: 0.8ås;
+}
+
+.aboveOverlay:hover {
+    outline: 100vh solid rgba(0, 0, 0, 0.5)
+}

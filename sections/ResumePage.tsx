@@ -7,7 +7,7 @@ import A4Page from "../components/a4Page/A4Page";
 import TitleWithBr from "../components/TitleWithBr";
 import { nameStyle, occupationStyle } from "../src/styles/styles";
 import MainNav from "../components/MainNav";
-import ArrangmentBoard from "../components/ArrangmentBoard";
+import ArrangementBoard from "../components/ArrangmentBoard";
 import Skills from "../sections/Skills";
 import style from "./ResumePage.module.css";
 import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
@@ -61,7 +61,7 @@ const HomePage = () => {
     <div className={style.resumePage}>
       <div style={{ position: "absolute", left: 20, top: 200 }}>
         <MainNav onSetBgImg={onSetBgImg} />
-        <ArrangmentBoard />
+        <ArrangementBoard />
       </div>
       <h1>Home Page</h1>
       <DownloadClientSide />

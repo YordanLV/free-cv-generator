@@ -75,7 +75,7 @@ const FormatContenteditable: React.FC = () => {
         </div>
       )}
       {showControls && (
-        <div style={{ display: "flex", flexDirection: "row", gap: "0.5rem" }}>
+        <div className="flex flex-row gap-1 mt-2.5">
           <EditButton cmd="italic" />
           <EditButton cmd="bold" />
           <EditButton cmd="insertUnorderedList" name="bullet" />

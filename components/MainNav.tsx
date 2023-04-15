@@ -26,27 +26,29 @@ const MainNav = ({ onSetBgImg }: SideNav) => (
             User Group
           </Nav.Item>
           <Nav.Menu eventKey="3" title="Background" icon={<MagicIcon />}>
-            {bgFiles.map((bg, index) => {
-              return (
-                <Nav.Item key={index} eventKey={`3-${index}`}>
-                  <img
-                    onClick={async () => {
-                      const imgSrc = `background/${bg}`;
-                      const base64Img = await convertImageToBase64(imgSrc);
-                      onSetBgImg(base64Img);
-                    }}
-                    style={{
-                      objectFit: "cover",
-                      border: "2px solid black",
-                      width: "100%",
-                      marginBottom: "1rem",
-                    }}
-                    height={250}
-                    src={`background/${bg}`}
-                  />{" "}
-                </Nav.Item>
-              );
-            })}
+            <div className="grid content-center">
+              {bgFiles.map((bg, index) => {
+                return (
+                  <Nav.Item key={index} eventKey={`3-${index}`}>
+                    <img
+                      onClick={async () => {
+                        const imgSrc = `background/${bg}`;
+                        const base64Img = await convertImageToBase64(imgSrc);
+                        onSetBgImg(base64Img);
+                      }}
+                      style={{
+                        objectFit: "cover",
+                        border: "2px solid black",
+                        width: "50%",
+                        marginBottom: "1rem",
+                      }}
+                      height={100}
+                      src={`background/${bg}`}
+                    />{" "}
+                  </Nav.Item>
+                );
+              })}
+            </div>
           </Nav.Menu>
           <Nav.Menu eventKey="5" title="Colors" icon={<GearCircleIcon />}>
             {colorSchemes.map((colors) => {

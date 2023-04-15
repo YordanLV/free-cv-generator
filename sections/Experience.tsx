@@ -24,6 +24,18 @@ const Experience: React.FC = () => {
     ],
   });
 
+  const addExperienceItem = () => {
+    const newItem = {
+      content: "Number 3",
+      data: { title: "Your Dick" },
+      date: new Date().toISOString(),
+    };
+    setItems({
+      ...items,
+      column1: [...items.column1, newItem],
+    });
+  };
+
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
 
   const handleDragStart = (
@@ -62,8 +74,8 @@ const Experience: React.FC = () => {
   };
 
   return (
-    <div className="App">
-      <div className="columns">
+    <div>
+      <div>
         {Object.keys(items).map((column) => (
           <div key={column} onDragOver={handleDragOver}>
             {items[column].map((item, index) => {
@@ -83,7 +95,7 @@ const Experience: React.FC = () => {
                   onDragStart={(e) => handleDragStart(e, column, index)}
                   onDrop={(e) => handleDrop(e, column, index)}
                 >
-                  <div>
+                  <div className={style.aboveOverlay}>
                     <div className={style.itemTitle}>{item.content}</div>
                     <ExperienceItem
                       key={item.content}
@@ -96,6 +108,7 @@ const Experience: React.FC = () => {
             })}
           </div>
         ))}
+        <button onClick={addExperienceItem}>Add Item</button>
       </div>
     </div>
   );
