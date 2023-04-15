@@ -1,0 +1,7 @@
+.editablecontent {
+  font-size: 0.75rem;
+}
+.editablecontent ul {
+  list-style: square;
+  margin-left: 1rem;
+}

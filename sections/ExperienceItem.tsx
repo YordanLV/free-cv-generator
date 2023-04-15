@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import FormatContenteditable from "./FormatContenteditable";
+import FormatContenteditable from "../components/formatContenteditable/FormatContenteditable";
 
 export default function WorkItem({ style, data }: any) {
   const { register } = useForm();

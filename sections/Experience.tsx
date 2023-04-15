@@ -1,5 +1,6 @@
 import ExperienceItem from "./ExperienceItem";
 import React, { useState } from "react";
+import style from "./Experience.module.css";
 
 interface Item {
   column: string;
@@ -11,7 +12,7 @@ interface ItemData {
   date: string;
 }
 
-const App: React.FC = () => {
+const Experience: React.FC = () => {
   const [items, setItems] = useState({
     column1: [
       {
@@ -71,7 +72,7 @@ const App: React.FC = () => {
                   key={`${column}-${index}`}
                   style={{
                     position: "relative",
-                    cursor: "pointer",
+                    cursor: "grab",
                     borderBottom:
                       index + 1 === items[column].length
                         ? "none"
@@ -83,7 +84,7 @@ const App: React.FC = () => {
                   onDrop={(e) => handleDrop(e, column, index)}
                 >
                   <div>
-                    <h5>{item.content}</h5>
+                    <div className={style.itemTitle}>{item.content}</div>
                     <ExperienceItem
                       key={item.content}
                       data={item.data}
@@ -100,4 +101,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Experience;

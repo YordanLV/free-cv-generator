@@ -12,6 +12,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mikecousins/react-pdf": "5.5.1",
+    "@nextui-org/react": "^1.0.0-beta.12",
     "@react-icons/all-files": "^4.1.0",
     "@react-pdf/renderer": "1.6.8",
     "@thaddeusjiang/react-sortable-list": "^0.1.1",

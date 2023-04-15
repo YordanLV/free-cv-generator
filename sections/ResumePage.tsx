@@ -1,18 +1,19 @@
 import { SetStateAction, useState } from "react";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Experience from "../../sections/Experience";
-import Pie from "../../components/graphs/Pie";
-import A4Page from "../../components/a4Page/A4Page";
-import TitleWithBr from "../../components/TitleWithBr";
-import { nameStyle, occupationStyle } from "../styles/styles";
-import MainNav from "../../components/MainNav";
-import ArrangmentBoard from "../../components/ArrangmentBoard";
-import Skills from "../../sections/Skills";
-import ContentEditableWithPlaceholder from "../../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
+import Experience from "../sections/Experience";
+import Pie from "../components/graphs/Pie";
+import A4Page from "../components/a4Page/A4Page";
+import TitleWithBr from "../components/TitleWithBr";
+import { nameStyle, occupationStyle } from "../src/styles/styles";
+import MainNav from "../components/MainNav";
+import ArrangmentBoard from "../components/ArrangmentBoard";
+import Skills from "../sections/Skills";
+import style from "./ResumePage.module.css";
+import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
 
 const DownloadClientSide = dynamic(
-  () => import("../../components/DownloadClientSide"),
+  () => import("../components/DownloadClientSide"),
   {
     ssr: false,
   }
@@ -57,13 +58,7 @@ const HomePage = () => {
   };
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
+    <div className={style.resumePage}>
       <div style={{ position: "absolute", left: 20, top: 200 }}>
         <MainNav onSetBgImg={onSetBgImg} />
         <ArrangmentBoard />
