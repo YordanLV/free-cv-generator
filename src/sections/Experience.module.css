@@ -1,0 +1,10 @@
+.itemTitle {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.aboveOverlay {
+    position: relative;
+    z-index: 1000;
+    display: block;
+}

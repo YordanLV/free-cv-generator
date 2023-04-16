@@ -1,14 +1,14 @@
 import { SetStateAction, useState } from "react";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Experience from "../sections/Experience";
+import Experience from "./Experience";
 import Pie from "../components/graphs/Pie";
 import A4Page from "../components/a4Page/A4Page";
-import TitleWithBr from "../components/TitleWithBr";
-import { nameStyle, occupationStyle } from "../src/styles/styles";
-import MainNav from "../components/MainNav";
+import TitleWithBr from "../components/titleNavBar/TitleWithBr";
+import { nameStyle, occupationStyle } from "../styles/styles";
+import MainNav from "../components/sideNav/SideNav";
 import ArrangementBoard from "../components/ArrangmentBoard";
-import Skills from "../sections/Skills";
+import Skills from "./Skills";
 import style from "./ResumePage.module.css";
 import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
 

@@ -15,7 +15,6 @@ const FormatContenteditable: React.FC = () => {
   const [isPlaceholderShown, setIsPlaceholderShown] = useState<boolean>(true);
   const [showControls, setShowControls] = useState<boolean>(false);
   const contentEditable = useRef<ContentEditable>(null);
-  console.log(html);
 
   const placeholder =
     "Please write a good description and use bullet points to show what you have done";

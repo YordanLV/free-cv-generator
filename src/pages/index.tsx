@@ -1,18 +1,22 @@
 import { SetStateAction, useState } from "react";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Experience from "../../sections/Experience";
-import Pie from "../../components/graphs/Pie";
-import A4Page from "../../components/a4Page/A4Page";
-import TitleWithBr from "../../components/TitleWithBr";
+import Experience from "../sections/Experience";
+import Pie from "../components/graphs/Pie";
+import A4Page from "../components/a4Page/A4Page";
+import TitleWithBr from "../components/titleNavBar/TitleWithBr";
 import { nameStyle, occupationStyle } from "../styles/styles";
-import MainNav from "../../components/MainNav";
-import ArrangmentBoard from "../../components/ArrangmentBoard";
-import Skills from "../../sections/Skills";
-import ContentEditableWithPlaceholder from "../../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
+import MainNav from "../components/sideNav/SideNav";
+import ArrangmentBoard from "../components/ArrangmentBoard";
+import Skills from "../sections/Skills";
+import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
+import { uid } from "react-uid";
+import MiniMap from "../components/miniMap/MiniMap";
+import { useRecoilState } from "recoil";
+import { sectionsStateAtom } from "@/recoil/sectionsState";
 
 const DownloadClientSide = dynamic(
-  () => import("../../components/DownloadClientSide"),
+  () => import("../components/DownloadClientSide"),
   {
     ssr: false,
   }
@@ -21,6 +25,11 @@ const DownloadClientSide = dynamic(
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [bgImg, setBgImg] = useState("");
+  const [sectionsState, setSectionsState] = useRecoilState(sectionsStateAtom);
+
+  const mappedElements = Array.from(sectionsState).map(([key, value]) => {
+    return <div key={uid(key)}>{value}</div>;
+  });
 
   const onSetBgImg = (imgUrl: SetStateAction<string>) => {
     setBgImg(imgUrl);
@@ -66,10 +75,8 @@ const HomePage = () => {
     >
       <div style={{ position: "absolute", left: 20, top: 200 }}>
         <MainNav onSetBgImg={onSetBgImg} />
-        <ArrangmentBoard />
       </div>
       <h1>Home Page</h1>
-      <DownloadClientSide />
       <button
         style={{ marginTop: "1rem" }}
         onClick={downloadPdf}
@@ -135,18 +142,7 @@ const HomePage = () => {
               <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
             </span>
           </div>
-          <TitleWithBr sectionTitle="RELEVANT EXPERIENCE">
-            <Experience />
-          </TitleWithBr>
-          {/* <TitleWithBr sectionTitle="SKILLS">
-            <TextArea />
-          </TitleWithBr> */}
-          {/* <Block title="Skills">
-            <Pie />
-          </Block>
-          <Block title="Skills">
-            <BarChart />
-          </Block> */}
+          {mappedElements}
         </A4Page>
       </div>
     </div>

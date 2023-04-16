@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import FormatContenteditable from "../components/formatContenteditable/FormatContenteditable";
 import customStyle from "./ExperienceItem.module.css";
 
-export default function WorkItem({ style, data }: any) {
+export default function ExperienceItem({ style, data }: any) {
   const { register } = useForm();
 
   return (

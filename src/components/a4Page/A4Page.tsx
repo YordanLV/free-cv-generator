@@ -7,6 +7,7 @@ interface A4PageProps {
 }
 
 const A4Page: React.FC<A4PageProps> = ({ bgImg, children }) => {
+  console.log(children[2]);
   return (
     <div
       id="resume"

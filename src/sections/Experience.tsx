@@ -1,6 +1,7 @@
 import ExperienceItem from "./ExperienceItem";
 import React, { useState } from "react";
 import style from "./Experience.module.css";
+import TitleWithBr from "../components/titleNavBar/TitleWithBr";
 
 interface Item {
   column: string;
@@ -13,21 +14,24 @@ interface ItemData {
 }
 
 const Experience: React.FC = () => {
-  const [items, setItems] = useState({
+  const [items, setItems] = useState<{ [key: string]: ItemData[] }>({
     column1: [
       {
         content: "Number 1",
-        data: { title: "My Dick" },
+        data: { title: "My Duck" },
         date: new Date().toISOString(),
       },
       { content: "Number 2", date: new Date().toISOString() },
     ],
   });
 
+  const [draggedItem, setDraggedItem] = useState<Item | null>(null);
+  const [hoveredItemIndex, setHoveredItemIndex] = useState<number | null>(null);
+
   const addExperienceItem = () => {
-    const newItem = {
+    const newItem: ItemData = {
       content: "Number 3",
-      data: { title: "Your Dick" },
+      data: { title: "Your Duck" },
       date: new Date().toISOString(),
     };
     setItems({
@@ -35,8 +39,6 @@ const Experience: React.FC = () => {
       column1: [...items.column1, newItem],
     });
   };
-
-  const [draggedItem, setDraggedItem] = useState<Item | null>(null);
 
   const handleDragStart = (
     e: React.DragEvent<HTMLDivElement>,
@@ -73,6 +75,14 @@ const Experience: React.FC = () => {
     e.preventDefault();
   };
 
+  const handleMouseEnter = (index: number) => {
+    setHoveredItemIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredItemIndex(null);
+  };
+
   return (
     <div>
       <div>
@@ -94,9 +104,23 @@ const Experience: React.FC = () => {
                   draggable
                   onDragStart={(e) => handleDragStart(e, column, index)}
                   onDrop={(e) => handleDrop(e, column, index)}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <div className={style.aboveOverlay}>
                     <div className={style.itemTitle}>{item.content}</div>
+                    {hoveredItemIndex === index && (
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          right: 0,
+                          transform: "translateX(-50%)",
+                        }}
+                      >
+                        <button>Damn</button>
+                      </div>
+                    )}
                     <ExperienceItem
                       key={item.content}
                       data={item.data}
@@ -114,4 +138,12 @@ const Experience: React.FC = () => {
   );
 };
 
-export default Experience;
+const ExperienceComponent = () => {
+  return (
+    <TitleWithBr sectionTitle={"Relevant Experience"}>
+      <Experience />
+    </TitleWithBr>
+  );
+};
+
+export default ExperienceComponent;

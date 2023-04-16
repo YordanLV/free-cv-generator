@@ -1,6 +1,6 @@
 import { Html, Head, Main, NextScript } from "next/document";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+
+import React from "react";
 
 export default function Document() {
   return (
