@@ -7,7 +7,6 @@ interface A4PageProps {
 }
 
 const A4Page: React.FC<A4PageProps> = ({ bgImg, children }) => {
-  console.log(children[2]);
   return (
     <div
       id="resume"
@@ -22,9 +21,7 @@ const A4Page: React.FC<A4PageProps> = ({ bgImg, children }) => {
         boxShadow: "0 0 8px rgba(0, 0, 0, 0.2)",
         backgroundSize: "cover",
         backgroundRepeat: "none",
-        backgroundImage: bgImg
-          ? `url(${bgImg})`
-          : "url(https://img.freepik.com/free-photo/abstract-surface-textures-white-concrete-stone-wall_74190-8189.jpg?w=2000&t=st=1681361795~exp=1681362395~hmac=895cef0595478fc36d06a721a3745c2f5cf70ea7d96d29d596e506e2c52825f8)",
+        backgroundImage: bgImg ? `url(${bgImg})` : "none",
       }}
     >
       {children}

@@ -1,7 +1,5 @@
-import { rightColumnState, leftColumnState } from "@/recoil/sectionsState";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import { useRecoilState } from "recoil";
 
 interface OnDragEndParams {
   result: any;
@@ -57,36 +55,32 @@ const onDragEnd = ({ result, columns, setColumns }: OnDragEndParams) => {
   }
 };
 
-const DraggableColumns: React.FC = () => {
-  const [leftColumnContent, setLeftColumnContent] =
-    useRecoilState(leftColumnState);
-  const [rightColumnContent, setRightColumnContent] =
-    useRecoilState(rightColumnState);
+const DraggableColumns: React.FC = ({
+  componentsRight,
+  componentsLeft,
+}: any) => {
+  const tasks: Task[] = [
+    { id: "1", content: "First task" },
+    { id: "2", content: "Second task" },
+    { id: "3", content: "Third task" },
+    { id: "4", content: "Fourth task" },
+    { id: "5", content: "Fifth task" },
+  ];
 
-  const leftColumnArray = leftColumnContent.map((content, index) => {
-    return { id: String(index + 1), content };
-  });
-
-  const rightColumnArray = rightColumnContent.map((content, index) => {
-    return { id: String(index + 1), content };
-  });
-
-  const taskStatus: any = {
-    leftColumnContent: {
-      name: "Right Column",
-      items: leftColumnArray,
-      width: "60%",
+  const taskStatus: Record<string, Column> = {
+    requested: {
+      name: "Requested",
+      items: componentsRight ?? tasks,
+      width: "70%",
     },
-    rightColumnContent: {
-      name: "Right Column",
-      items: rightColumnArray,
-      width: "40%",
+    done: {
+      name: "Done",
+      items: componentsLeft ?? [],
+      width: "30%",
     },
   };
 
   const [columns, setColumns] = useState(taskStatus);
-  setLeftColumnContent(columns.leftColumnContent.items);
-  setRightColumnContent(columns.rightColumnContent.items);
   return (
     <div className="flex flex-row">
       <DragDropContext

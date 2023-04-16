@@ -11,7 +11,11 @@ import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
 import { colorCirclesStyle } from "../../styles/styles";
 import { uid } from "react-uid";
-import MiniMap from "../miniMap/MiniMap";
+import dynamic from "next/dynamic";
+
+const MiniMap = dynamic(import("../miniMap/MiniMap"), {
+  ssr: false,
+});
 
 const bgFiles = ["1.jpg", "2.jpg", "3.jpg", "5.jpg", "6.jpg"];
 

@@ -1,19 +1,17 @@
-import { SetStateAction, useState } from "react";
+import { Fragment, SetStateAction, useState } from "react";
 import dynamic from "next/dynamic";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
-import Experience from "../sections/Experience";
-import Pie from "../components/graphs/Pie";
 import A4Page from "../components/a4Page/A4Page";
-import TitleWithBr from "../components/titleNavBar/TitleWithBr";
 import { nameStyle, occupationStyle } from "../styles/styles";
 import MainNav from "../components/sideNav/SideNav";
-import ArrangmentBoard from "../components/ArrangmentBoard";
-import Skills from "../sections/Skills";
 import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
 import { uid } from "react-uid";
-import MiniMap from "../components/miniMap/MiniMap";
 import { useRecoilState } from "recoil";
-import { sectionsStateAtom } from "@/recoil/sectionsState";
+import {
+  elements,
+  leftColumnState,
+  rightColumnState,
+} from "@/recoil/sectionsState";
 
 const DownloadClientSide = dynamic(
   () => import("../components/DownloadClientSide"),
@@ -25,18 +23,19 @@ const DownloadClientSide = dynamic(
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [bgImg, setBgImg] = useState("");
-  const [sectionsState, setSectionsState] = useRecoilState(sectionsStateAtom);
+  const [rightColumnContent, setRightColumnContent] =
+    useRecoilState(rightColumnState);
+  const [leftColumnContent, setLeftColumnContent] =
+    useRecoilState(leftColumnState);
 
-  const mappedElements = Array.from(sectionsState).map(([key, value]) => {
-    return <div key={uid(key)}>{value}</div>;
-  });
+  console.log(rightColumnContent);
+  console.log(leftColumnContent);
 
   const onSetBgImg = (imgUrl: SetStateAction<string>) => {
     setBgImg(imgUrl);
   };
 
   const downloadPdf = async () => {
-    console.log(document.querySelector("#resume")?.outerHTML);
     setIsLoading(true);
     fetch("/api/html-to-pdf", {
       method: "POST",
@@ -142,7 +141,26 @@ const HomePage = () => {
               <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
             </span>
           </div>
-          {mappedElements}
+          <div style={{ display: "flex", flexDirection: "row", gap: "24px" }}>
+            <div style={{ width: "60%" }}>
+              {leftColumnContent.map((content) => {
+                return (
+                  <Fragment key={uid(content)}>
+                    {elements[content.content]}
+                  </Fragment>
+                );
+              })}
+            </div>
+            <div style={{ width: "40%" }}>
+              {rightColumnContent.map((content) => {
+                return (
+                  <Fragment key={uid(content)}>
+                    {elements[content.content]}
+                  </Fragment>
+                );
+              })}
+            </div>
+          </div>
         </A4Page>
       </div>
     </div>
