@@ -25,6 +25,7 @@ const Experience: React.FC = () => {
     ],
   });
 
+  const [showAddMore, setShowAddMore] = useState(false);
   const [draggedItem, setDraggedItem] = useState<Item | null>(null);
   const [hoveredItemIndex, setHoveredItemIndex] = useState<number | null>(null);
 
@@ -77,6 +78,7 @@ const Experience: React.FC = () => {
 
   const handleMouseEnter = (index: number) => {
     setHoveredItemIndex(index);
+    setShowAddMore(items.column1.length === index + 1);
   };
 
   const handleMouseLeave = () => {
@@ -132,7 +134,14 @@ const Experience: React.FC = () => {
             })}
           </div>
         ))}
-        <button onClick={addExperienceItem}>Add Item</button>
+        {showAddMore && (
+          <button
+            className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold"
+            onClick={addExperienceItem}
+          >
+            +
+          </button>
+        )}
       </div>
     </div>
   );
