@@ -9,8 +9,10 @@ import {
 import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
 import { colorCirclesStyle } from "../../styles/styles";
+import { AiOutlineAppstore } from "react-icons/ai";
 import { uid } from "react-uid";
 import dynamic from "next/dynamic";
+import { BsDownload } from "react-icons/bs";
 
 const MiniMap = dynamic(import("../miniMap/MiniMap"), {
   ssr: false,
@@ -43,31 +45,32 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
 
   const downloadPdf = async () => {
     setIsLoading(true);
-    fetch("/api/html-to-pdf", {
-      method: "POST",
-      body: JSON.stringify({
-        html: document.querySelector("#resume")?.outerHTML,
-      }), // Send the stringified HTML document in the request body
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        // Get the PDF as a blob from the response
-        return response.blob();
-      })
-      .then((blob) => {
-        // Create a URL for the PDF blob and download it
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "document.pdf";
-        a.click();
-      })
-      .catch((error) => {
-        console.error(error);
+    try {
+      const response = await fetch("/api/html-to-pdf", {
+        method: "POST",
+        body: JSON.stringify({
+          html: document.querySelector("#resume")?.outerHTML,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
       });
-    setIsLoading(false);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "document.pdf";
+      a.click();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -137,13 +140,18 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
               );
             })}
           </SubMenu>
-          <SubMenu label="Arrangement">
+          <SubMenu label="Arrangement" icon={<AiOutlineAppstore />}>
             <MiniMap />
           </SubMenu>
-          <MenuItem onClick={downloadPdf}> Download PDF</MenuItem>
+          <MenuItem
+            disabled={isLoading}
+            icon={<BsDownload />}
+            onClick={() => downloadPdf()}
+          >
+            Download PDF {isLoading}
+          </MenuItem>
         </Menu>
       </Sidebar>
-      <div></div>
     </div>
   );
 }

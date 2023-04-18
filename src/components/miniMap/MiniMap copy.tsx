@@ -1,4 +1,4 @@
-import { sectionsStateAtom } from "@/recoil/sectionsState";
+import { sectionsStateAtom } from "@/recoil/sectionsAtoms";
 import React from "react";
 import { uid } from "react-uid";
 import { useRecoilState } from "recoil";

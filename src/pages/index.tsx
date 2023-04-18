@@ -10,7 +10,7 @@ import {
   elements,
   leftColumnState,
   rightColumnState,
-} from "@/recoil/sectionsState";
+} from "@/recoil/sectionsAtoms";
 
 const HomePage = () => {
   const [bgImg, setBgImg] = useState("");

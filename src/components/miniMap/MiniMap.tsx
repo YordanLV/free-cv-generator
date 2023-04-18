@@ -1,4 +1,4 @@
-import { rightColumnState, leftColumnState } from "@/recoil/sectionsState";
+import { rightColumnState, leftColumnState } from "@/recoil/sectionsAtoms";
 import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";

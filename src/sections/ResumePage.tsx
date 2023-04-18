@@ -27,35 +27,35 @@ const HomePage = () => {
     setBgImg(imgUrl);
   };
 
-  const downloadPdf = async () => {
-    console.log(document.querySelector("#resume")?.outerHTML);
-    setIsLoading(true);
-    fetch("/api/html-to-pdf", {
-      method: "POST",
-      body: JSON.stringify({
-        html: document.querySelector("#resume")?.outerHTML,
-      }), // Send the stringified HTML document in the request body
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        // Get the PDF as a blob from the response
-        return response.blob();
-      })
-      .then((blob) => {
-        // Create a URL for the PDF blob and download it
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = "document.pdf";
-        a.click();
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-    setIsLoading(false);
-  };
+  // const downloadPdf = async () => {
+  //   console.log(document.querySelector("#resume")?.outerHTML);
+  //   setIsLoading(true);
+  //   fetch("/api/html-to-pdf", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       html: document.querySelector("#resume")?.outerHTML,
+  //     }), // Send the stringified HTML document in the request body
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //   })
+  //     .then((response) => {
+  //       // Get the PDF as a blob from the response
+  //       return response.blob();
+  //     })
+  //     .then((blob) => {
+  //       // Create a URL for the PDF blob and download it
+  //       const url = URL.createObjectURL(blob);
+  //       const a = document.createElement("a");
+  //       a.href = url;
+  //       a.download = "document.pdf";
+  //       a.click();
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  //   setIsLoading(false);
+  // };
 
   return (
     <div className={style.resumePage}>
@@ -65,13 +65,13 @@ const HomePage = () => {
       </div>
       <h1>Home Page</h1>
       <DownloadClientSide />
-      <button
-        style={{ marginTop: "1rem" }}
-        onClick={downloadPdf}
-        disabled={isLoading}
-      >
-        {isLoading ? "Loading..." : "Download PDF"}
-      </button>
+      {/* <button
+          style={{ marginTop: "1rem" }}
+          onClick={downloadPdf}
+          disabled={isLoading}
+        >
+          {isLoading ? "Loading..." : "Download PDF"}
+        </button> */}
       <div className="relative">
         <A4Page bgImg={bgImg}>
           <div

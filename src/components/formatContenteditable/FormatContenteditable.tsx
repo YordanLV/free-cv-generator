@@ -68,23 +68,23 @@ const FormatContenteditable: React.FC = () => {
       {isPlaceholderShown && (
         <div
           onClick={onPlaceHolderClick}
-          style={{ position: "absolute", top: 0, width: "100%" }}
+          style={{ top: 0, width: "100%", opacity: "0.3" }}
         >
-          {placeholder}
+          <li>{placeholder}</li>
         </div>
       )}
-      {showControls && (
+      {/* {showControls && (
         <div className="flex flex-row gap-1 mt-2.5">
           <EditButton cmd="italic" />
           <EditButton cmd="bold" />
           <EditButton cmd="insertUnorderedList" name="bullet" />
-          {/* <EditButton
+          <EditButton
             cmd="createLink"
             arg="https://github.com/lovasoa/react-contenteditable"
             name="hyperlink"
-          /> */}
+          />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
