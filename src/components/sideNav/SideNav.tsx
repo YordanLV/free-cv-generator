@@ -1,11 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Sidebar,
   Menu,
   MenuItem,
   useProSidebar,
   SubMenu,
-  menuClasses,
 } from "react-pro-sidebar";
 import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
@@ -25,6 +24,7 @@ type SideNav = {
 
 export default function TitleWithBr({ onSetBgImg }: SideNav) {
   const { collapseSidebar } = useProSidebar();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -41,9 +41,38 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
     };
   }, [collapseSidebar]);
 
+  const downloadPdf = async () => {
+    setIsLoading(true);
+    fetch("/api/html-to-pdf", {
+      method: "POST",
+      body: JSON.stringify({
+        html: document.querySelector("#resume")?.outerHTML,
+      }), // Send the stringified HTML document in the request body
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        // Get the PDF as a blob from the response
+        return response.blob();
+      })
+      .then((blob) => {
+        // Create a URL for the PDF blob and download it
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "document.pdf";
+        a.click();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+    setIsLoading(false);
+  };
+
   return (
-    <div style={{ display: "flex", height: "100%" }}>
-      <Sidebar>
+    <div>
+      <Sidebar width="500px">
         <Menu renderExpandIcon={({ open }) => <span>{open ? "-" : "+"}</span>}>
           <SubMenu label="Backgrounds">
             <ul className="flex flex-col gap-2 py-2 ">
@@ -111,9 +140,10 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
           <SubMenu label="Arrangement">
             <MiniMap />
           </SubMenu>
-          <MenuItem> Examples</MenuItem>
+          <MenuItem onClick={downloadPdf}> Download PDF</MenuItem>
         </Menu>
       </Sidebar>
+      <div></div>
     </div>
   );
 }

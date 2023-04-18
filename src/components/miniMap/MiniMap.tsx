@@ -1,7 +1,9 @@
 import { rightColumnState, leftColumnState } from "@/recoil/sectionsState";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { useRecoilState } from "recoil";
+import { capitalizeFirstLetter } from "../../../utils/capitalizeFirstLetter";
+import { FiMove } from "react-icons/fi";
 
 interface OnDragEndParams {
   result: any;
@@ -88,60 +90,71 @@ const DraggableColumns: React.FC = () => {
   setLeftColumnContent(columns.leftColumnContent.items);
   setRightColumnContent(columns.rightColumnContent.items);
   return (
-    <div className="flex flex-row">
-      <DragDropContext
-        onDragEnd={(result) => onDragEnd({ result, columns, setColumns })}
-      >
-        {Object.entries(columns).map(([columnId, column], index) => {
-          const width = column.width;
-          return (
-            <div key={columnId} style={{ width }}>
-              <Droppable droppableId={columnId} key={columnId}>
-                {(provided, snapshot) => {
-                  return (
-                    <div
-                      {...provided.droppableProps}
-                      ref={provided.innerRef}
-                      className={`p-4 w-full ${
-                        snapshot.isDraggingOver ? "bg-blue-200" : "bg-gray-200"
-                      }`}
-                    >
-                      {column.items.map((item, index) => {
-                        return (
-                          <Draggable
-                            key={item.id}
-                            draggableId={item.id}
-                            index={index}
-                          >
-                            {(provided, snapshot) => {
-                              return (
-                                <div
-                                  ref={provided.innerRef}
-                                  {...provided.draggableProps}
-                                  {...provided.dragHandleProps}
-                                  className={`select-none p-4 my-2 min-h-12 ${
-                                    snapshot.isDragging
-                                      ? "bg-blue-800"
-                                      : "bg-blue-600"
-                                  } text-white`}
-                                  style={provided.draggableProps.style}
-                                >
-                                  {item.content}
-                                </div>
-                              );
-                            }}
-                          </Draggable>
-                        );
-                      })}
-                      {provided.placeholder}
-                    </div>
-                  );
-                }}
-              </Droppable>
-            </div>
-          );
-        })}
-      </DragDropContext>
+    <div className="p-4">
+      <div className="p-4 w-full h-full text-center bg-lime-400 mb-2">
+        Header
+      </div>
+      <div className="flex flex-row gap-2">
+        <DragDropContext
+          onDragEnd={(result) => onDragEnd({ result, columns, setColumns })}
+        >
+          {Object.entries(columns).map(([columnId, column], index) => {
+            const width = column.width;
+            return (
+              <div key={columnId} style={{ width }}>
+                <Droppable droppableId={columnId} key={columnId}>
+                  {(provided, snapshot) => {
+                    return (
+                      <div
+                        {...provided.droppableProps}
+                        ref={provided.innerRef}
+                        className={`p-4 w-full h-full text-center ${
+                          snapshot.isDraggingOver
+                            ? "bg-blue-200"
+                            : "bg-gray-200"
+                        }`}
+                      >
+                        Column {index + 1}
+                        {column.items.map((item, index) => {
+                          return (
+                            <Draggable
+                              key={item.id}
+                              draggableId={item.id}
+                              index={index}
+                            >
+                              {(provided, snapshot) => {
+                                return (
+                                  <div
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                    className={`relative  select-none p-4 my-2 min-h-12 ${
+                                      snapshot.isDragging
+                                        ? "bg-blue-800 opacity-70"
+                                        : "bg-blue-600"
+                                    } text-white`}
+                                    style={provided.draggableProps.style}
+                                  >
+                                    <div className="absolute top-2 left-2">
+                                      <FiMove />
+                                    </div>
+                                    {capitalizeFirstLetter(item.content)}
+                                  </div>
+                                );
+                              }}
+                            </Draggable>
+                          );
+                        })}
+                        {provided.placeholder}
+                      </div>
+                    );
+                  }}
+                </Droppable>
+              </div>
+            );
+          })}
+        </DragDropContext>
+      </div>
     </div>
   );
 };
