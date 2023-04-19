@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import ReactDOM from "react-dom";
 import ContentEditable, { ContentEditableEvent } from "react-contenteditable";
 import sanitizeHtml from "sanitize-html";
 import style from "./FormatContenteditable.module.css";

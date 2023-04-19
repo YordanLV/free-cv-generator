@@ -1,7 +1,6 @@
 import { Fragment, SetStateAction, useState } from "react";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
 import A4Page from "../components/a4Page/A4Page";
-import { nameStyle, occupationStyle } from "../styles/styles";
 import MainNav from "../components/sideNav/SideNav";
 import ContentEditableWithPlaceholder from "../components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
 import { uid } from "react-uid";
@@ -11,6 +10,7 @@ import {
   leftColumnState,
   rightColumnState,
 } from "@/recoil/sectionsAtoms";
+import style from "../styles/index.module.css";
 
 const HomePage = () => {
   const [bgImg, setBgImg] = useState("");
@@ -42,11 +42,11 @@ const HomePage = () => {
             >
               <ContentEditableWithPlaceholder
                 placeholder="Your Name"
-                inputStyle={nameStyle}
+                className={style.nameStyle}
               />
               <ContentEditableWithPlaceholder
                 placeholder="Occupation"
-                inputStyle={occupationStyle}
+                className={style.occupationStyle}
               />
             </div>
             <div
@@ -66,7 +66,10 @@ const HomePage = () => {
                 }}
               >
                 <FiPhone />
-                <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+                <ContentEditableWithPlaceholder
+                  placeholder="xxx-xxx-xxx"
+                  className={style.headerItems}
+                />
               </span>
               <span
                 style={{
@@ -76,7 +79,10 @@ const HomePage = () => {
                 }}
               >
                 <FiMail />{" "}
-                <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+                <ContentEditableWithPlaceholder
+                  placeholder="joe@email.com"
+                  className={style.headerItems}
+                />
               </span>
               <span
                 style={{
@@ -86,7 +92,10 @@ const HomePage = () => {
                 }}
               >
                 <FiLink />{" "}
-                <span style={{ marginLeft: "0.5rem" }}>xxx-xxx-xxx</span>
+                <ContentEditableWithPlaceholder
+                  placeholder="Website"
+                  className={style.headerItems}
+                />
               </span>
             </div>
             <div style={{ display: "flex", flexDirection: "row", gap: "24px" }}>

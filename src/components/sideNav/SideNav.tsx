@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
-import { colorCirclesStyle } from "../../styles/styles";
+import styles from "../../styles/index.module.css";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { uid } from "react-uid";
 import dynamic from "next/dynamic";
@@ -120,19 +120,19 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
                     <div
                       style={{
                         backgroundColor: colors.primary,
-                        ...colorCirclesStyle,
+                        ...styles.colorCirclesStyle,
                       }}
                     />
                     <div
                       style={{
                         backgroundColor: colors.secondary,
-                        ...colorCirclesStyle,
+                        ...styles.colorCirclesStyle,
                       }}
                     />
                     <div
                       style={{
                         backgroundColor: colors.alternative,
-                        ...colorCirclesStyle,
+                        ...styles.colorCirclesStyle,
                       }}
                     />
                   </div>
@@ -148,7 +148,7 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
             icon={<BsDownload />}
             onClick={() => downloadPdf()}
           >
-            Download PDF {isLoading}
+            Download PDF {isLoading && "loading"}
           </MenuItem>
         </Menu>
       </Sidebar>

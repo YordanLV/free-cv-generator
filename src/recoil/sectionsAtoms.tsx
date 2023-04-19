@@ -9,7 +9,7 @@ export const elements: Record<string, JSX.Element> = {
 
 export const leftColumnState = atom({
   key: "rightColumnState", // unique ID (with respect to other atoms/selectors)
-  default: ["experience"],
+  default: ["experience", "skills"],
 });
 
 export const rightColumnState = atom({
