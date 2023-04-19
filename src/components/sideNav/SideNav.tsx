@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   Sidebar,
   Menu,
@@ -13,8 +13,11 @@ import { AiOutlineAppstore } from "react-icons/ai";
 import { uid } from "react-uid";
 import dynamic from "next/dynamic";
 import { BsDownload } from "react-icons/bs";
+import Toggle from "../toggle/Toggle";
+import { totalColumns } from "@/recoil/sectionsAtoms";
+import { useRecoilState } from "recoil";
 
-const MiniMap = dynamic(import("../miniMap/MiniMap"), {
+const DraggableColumns = dynamic(import("../miniMap/DraggableColumns"), {
   ssr: false,
 });
 
@@ -27,6 +30,9 @@ type SideNav = {
 export default function TitleWithBr({ onSetBgImg }: SideNav) {
   const { collapseSidebar } = useProSidebar();
   const [isLoading, setIsLoading] = useState(false);
+  const [totalColumnCount, setTotalColumns] = useRecoilState(totalColumns);
+
+  const isDoubleColumn = totalColumnCount === 2;
 
   useEffect(() => {
     const handleResize = () => {
@@ -77,8 +83,21 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
     <div>
       <Sidebar width="500px">
         <Menu renderExpandIcon={({ open }) => <span>{open ? "-" : "+"}</span>}>
+          <SubMenu label="Settings">
+            <div className="flex flex-col p-2.5">
+              <Toggle
+                checked={!isDoubleColumn}
+                onChange={() => {
+                  totalColumnCount === 1
+                    ? setTotalColumns(2)
+                    : setTotalColumns(1);
+                }}
+                label={"Double Column"}
+              />
+            </div>
+          </SubMenu>
           <SubMenu label="Backgrounds">
-            <ul className="flex flex-col gap-2 py-2 ">
+            <ul className="flex flex-col gap-2 py-2">
               {bgFiles.map((bg, index) => (
                 <li key={index} className="flex w-full">
                   <img
@@ -141,7 +160,7 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
             })}
           </SubMenu>
           <SubMenu label="Arrangement" icon={<AiOutlineAppstore />}>
-            <MiniMap />
+            <DraggableColumns totalColumnCount={totalColumnCount} />
           </SubMenu>
           <MenuItem
             disabled={isLoading}

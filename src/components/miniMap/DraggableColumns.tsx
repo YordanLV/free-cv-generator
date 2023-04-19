@@ -59,25 +59,25 @@ const onDragEnd = ({ result, columns, setColumns }: OnDragEndParams) => {
   }
 };
 
-const DraggableColumns: React.FC = () => {
+const DraggableColumns: React.FC = ({ totalColumnCount }: any) => {
   const [leftColumnContent, setLeftColumnContent] =
     useRecoilState(leftColumnState);
   const [rightColumnContent, setRightColumnContent] =
     useRecoilState(rightColumnState);
 
-  const leftColumnArray = leftColumnContent.map((content, index) => {
+  const leftColumnArray = leftColumnContent?.map((content, index) => {
     return { id: String(index + 1), content };
   });
 
-  const rightColumnArray = rightColumnContent.map((content, index) => {
+  const rightColumnArray = rightColumnContent?.map((content, index) => {
     return { id: String(index + 1), content };
   });
 
-  const taskStatus: any = {
+  const taskStatus = {
     leftColumnContent: {
       name: "Right Column",
       items: leftColumnArray,
-      width: "60%",
+      width: "100%",
     },
     rightColumnContent: {
       name: "Right Column",
@@ -99,59 +99,65 @@ const DraggableColumns: React.FC = () => {
           onDragEnd={(result) => onDragEnd({ result, columns, setColumns })}
         >
           {Object.entries(columns).map(([columnId, column], index) => {
-            const width = column.width;
-            return (
-              <div key={columnId} style={{ width }}>
-                <Droppable droppableId={columnId} key={columnId}>
-                  {(provided, snapshot) => {
-                    return (
-                      <div
-                        {...provided.droppableProps}
-                        ref={provided.innerRef}
-                        className={`p-4 w-full h-full text-center ${
-                          snapshot.isDraggingOver
-                            ? "bg-blue-200"
-                            : "bg-gray-200"
-                        }`}
-                      >
-                        Column {index + 1}
-                        {column.items.map((item, index) => {
-                          return (
-                            <Draggable
-                              key={item.id}
-                              draggableId={item.id}
-                              index={index}
-                            >
-                              {(provided, snapshot) => {
-                                return (
-                                  <div
-                                    ref={provided.innerRef}
-                                    {...provided.draggableProps}
-                                    {...provided.dragHandleProps}
-                                    className={`relative  select-none p-4 my-2 min-h-12 ${
-                                      snapshot.isDragging
-                                        ? "bg-blue-800 opacity-70"
-                                        : "bg-blue-600"
-                                    } text-white`}
-                                    style={provided.draggableProps.style}
-                                  >
-                                    <div className="absolute top-2 left-2">
-                                      <FiMove />
+            const shouldRender =
+              totalColumnCount == index + 1 ||
+              index === Object.keys(columns).length - 2;
+
+            if (shouldRender) {
+              const width = column.width;
+              return (
+                <div key={columnId} style={{ width }}>
+                  <Droppable droppableId={columnId} key={columnId}>
+                    {(provided, snapshot) => {
+                      return (
+                        <div
+                          {...provided.droppableProps}
+                          ref={provided.innerRef}
+                          className={`p-4 w-full h-full text-center ${
+                            snapshot.isDraggingOver
+                              ? "bg-blue-200"
+                              : "bg-gray-200"
+                          }`}
+                        >
+                          Column {index + 1}
+                          {column.items.map((item, index) => {
+                            return (
+                              <Draggable
+                                key={item.id}
+                                draggableId={item.id}
+                                index={index}
+                              >
+                                {(provided, snapshot) => {
+                                  return (
+                                    <div
+                                      ref={provided.innerRef}
+                                      {...provided.draggableProps}
+                                      {...provided.dragHandleProps}
+                                      className={`relative  select-none p-4 my-2 min-h-12 ${
+                                        snapshot.isDragging
+                                          ? "bg-blue-800 opacity-70"
+                                          : "bg-blue-600"
+                                      } text-white`}
+                                      style={provided.draggableProps.style}
+                                    >
+                                      <div className="absolute top-2 left-2">
+                                        <FiMove />
+                                      </div>
+                                      {capitalizeFirstLetter(item.content)}
                                     </div>
-                                    {capitalizeFirstLetter(item.content)}
-                                  </div>
-                                );
-                              }}
-                            </Draggable>
-                          );
-                        })}
-                        {provided.placeholder}
-                      </div>
-                    );
-                  }}
-                </Droppable>
-              </div>
-            );
+                                  );
+                                }}
+                              </Draggable>
+                            );
+                          })}
+                          {provided.placeholder}
+                        </div>
+                      );
+                    }}
+                  </Droppable>
+                </div>
+              );
+            }
           })}
         </DragDropContext>
       </div>

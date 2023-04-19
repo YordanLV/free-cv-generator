@@ -9,6 +9,7 @@ import {
   elements,
   leftColumnState,
   rightColumnState,
+  totalColumns,
 } from "@/recoil/sectionsAtoms";
 import style from "../styles/index.module.css";
 
@@ -16,6 +17,9 @@ const HomePage = () => {
   const [bgImg, setBgImg] = useState("");
   const [rightColumnContent] = useRecoilState(rightColumnState);
   const [leftColumnContent] = useRecoilState(leftColumnState);
+  const [totalColumnCount] = useRecoilState(totalColumns);
+
+  const isDoubleColumn = totalColumnCount === 2;
 
   const onSetBgImg = (imgUrl: SetStateAction<string>) => {
     setBgImg(imgUrl);
@@ -99,7 +103,7 @@ const HomePage = () => {
               </span>
             </div>
             <div style={{ display: "flex", flexDirection: "row", gap: "24px" }}>
-              <div style={{ width: "60%" }}>
+              <div style={{ width: isDoubleColumn ? "60%" : "100%" }}>
                 {leftColumnContent.map((content) => {
                   return (
                     <Fragment key={uid(content)}>
@@ -108,15 +112,17 @@ const HomePage = () => {
                   );
                 })}
               </div>
-              <div style={{ width: "40%" }}>
-                {rightColumnContent.map((content) => {
-                  return (
-                    <Fragment key={uid(content)}>
-                      {elements[content.content]}
-                    </Fragment>
-                  );
-                })}
-              </div>
+              {isDoubleColumn && (
+                <div style={{ width: "40%" }}>
+                  {rightColumnContent.map((content) => {
+                    return (
+                      <Fragment key={uid(content)}>
+                        {elements[content.content]}
+                      </Fragment>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </A4Page>
         </div>

@@ -7,6 +7,11 @@ export const elements: Record<string, JSX.Element> = {
   skills: <Skills />,
 };
 
+export const totalColumns = atom({
+  key: "totalColumns",
+  default: 1,
+});
+
 export const leftColumnState = atom({
   key: "rightColumnState", // unique ID (with respect to other atoms/selectors)
   default: ["experience", "skills"],
