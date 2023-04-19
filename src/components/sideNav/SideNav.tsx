@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Sidebar,
   Menu,
@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
-import styles from "../../styles/index.module.css";
+import { styles } from "../../styles/index.style";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { uid } from "react-uid";
 import dynamic from "next/dynamic";

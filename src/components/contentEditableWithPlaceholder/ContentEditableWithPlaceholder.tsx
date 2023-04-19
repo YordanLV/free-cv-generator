@@ -3,13 +3,13 @@ import React, { useState } from "react";
 interface BorderlessInputProps {
   placeholder: string;
   onChange?: (value: string) => void;
-  className: any;
+  style: Object;
 }
 
 const BorderlessInput: React.FC<BorderlessInputProps> = ({
   placeholder,
   onChange,
-  className,
+  style,
 }) => {
   const [value, setValue] = useState("");
 
@@ -27,7 +27,7 @@ const BorderlessInput: React.FC<BorderlessInputProps> = ({
       value={value}
       placeholder={placeholder}
       onChange={handleChange}
-      className={className}
+      style={style}
     />
   );
 };

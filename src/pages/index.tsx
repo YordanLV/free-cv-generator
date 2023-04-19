@@ -11,7 +11,7 @@ import {
   rightColumnState,
   totalColumns,
 } from "@/recoil/sectionsAtoms";
-import style from "../styles/index.module.css";
+import { styles } from "../styles/index.style";
 
 const HomePage = () => {
   const [bgImg, setBgImg] = useState("");
@@ -46,11 +46,17 @@ const HomePage = () => {
             >
               <ContentEditableWithPlaceholder
                 placeholder="Your Name"
-                className={style.nameStyle}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  outline: "none",
+                  fontSize: "2rem",
+                  fontWeight: "bold",
+                }}
               />
               <ContentEditableWithPlaceholder
                 placeholder="Occupation"
-                className={style.occupationStyle}
+                style={styles.occupationStyle}
               />
             </div>
             <div
@@ -72,7 +78,7 @@ const HomePage = () => {
                 <FiPhone />
                 <ContentEditableWithPlaceholder
                   placeholder="xxx-xxx-xxx"
-                  className={style.headerItems}
+                  style={styles.headerItems}
                 />
               </span>
               <span
@@ -85,7 +91,7 @@ const HomePage = () => {
                 <FiMail />{" "}
                 <ContentEditableWithPlaceholder
                   placeholder="joe@email.com"
-                  className={style.headerItems}
+                  style={styles.headerItems}
                 />
               </span>
               <span
@@ -98,7 +104,7 @@ const HomePage = () => {
                 <FiLink />{" "}
                 <ContentEditableWithPlaceholder
                   placeholder="Website"
-                  className={style.headerItems}
+                  style={styles.headerItems}
                 />
               </span>
             </div>

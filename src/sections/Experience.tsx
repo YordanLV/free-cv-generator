@@ -1,7 +1,8 @@
 import ExperienceItem from "./ExperienceItem";
 import React, { useState } from "react";
-import style from "./Experience.module.css";
+import { styles } from "./Experiencee.style";
 import TitleWithBr from "../components/titleNavBar/TitleWithBr";
+import style from "styled-jsx/style";
 
 interface Item {
   column: string;
@@ -109,8 +110,8 @@ const Experience: React.FC = () => {
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className={style.aboveOverlay}>
-                    <div className={style.itemTitle}>{item.content}</div>
+                  <div style={style.aboveOverlay}>
+                    <div style={style.itemTitle}>{item.content}</div>
                     {hoveredItemIndex === index && (
                       <div
                         style={{
