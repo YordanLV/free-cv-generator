@@ -1,8 +1,10 @@
 import ExperienceItem from "./ExperienceItem";
 import React, { useState } from "react";
 import { styles } from "./Experiencee.style";
-import TitleWithBr from "../components/titleNavBar/TitleWithBr";
-import style from "styled-jsx/style";
+import TitleWithBr from "../components/titleWithBr/TitleWithBr";
+import ContentEditableWithPlaceholder from "@/components/contentEditableWithPlaceholder/ContentEditableWithPlaceholder";
+import SectionName from "../components/titleWithBr/TitleWithBr";
+import { fieldsStyles } from "@/styles/fileds.style";
 
 interface Item {
   column: string;
@@ -110,8 +112,8 @@ const Experience: React.FC = () => {
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div style={style.aboveOverlay}>
-                    <div style={style.itemTitle}>{item.content}</div>
+                  <div style={styles.aboveOverlay}>
+                    <div style={styles.itemTitle}>{item.content}</div>
                     {hoveredItemIndex === index && (
                       <div
                         style={{
@@ -150,9 +152,10 @@ const Experience: React.FC = () => {
 
 const ExperienceComponent = () => {
   return (
-    <TitleWithBr sectionTitle={"Relevant Experience"}>
+    <>
+      <TitleWithBr defaultValue="Experience" />
       <Experience />
-    </TitleWithBr>
+    </>
   );
 };
 

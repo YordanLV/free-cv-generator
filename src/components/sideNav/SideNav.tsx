@@ -8,7 +8,7 @@ import {
 } from "react-pro-sidebar";
 import colorSchemes from "../../theme/colorSchemes";
 import convertImageToBase64 from "../../../utils/imageToBase64";
-import { styles } from "../../styles/index.style";
+import { fieldsStyles } from "../../styles/fileds.style";
 import { AiOutlineAppstore } from "react-icons/ai";
 import { uid } from "react-uid";
 import dynamic from "next/dynamic";
@@ -139,19 +139,19 @@ export default function TitleWithBr({ onSetBgImg }: SideNav) {
                     <div
                       style={{
                         backgroundColor: colors.primary,
-                        ...styles.colorCirclesStyle,
+                        ...fieldsStyles.colorCirclesStyle,
                       }}
                     />
                     <div
                       style={{
                         backgroundColor: colors.secondary,
-                        ...styles.colorCirclesStyle,
+                        ...fieldsStyles.colorCirclesStyle,
                       }}
                     />
                     <div
                       style={{
                         backgroundColor: colors.alternative,
-                        ...styles.colorCirclesStyle,
+                        ...fieldsStyles.colorCirclesStyle,
                       }}
                     />
                   </div>

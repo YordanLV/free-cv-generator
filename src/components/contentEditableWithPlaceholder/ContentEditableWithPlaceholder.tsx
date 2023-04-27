@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 
 interface BorderlessInputProps {
-  placeholder: string;
+  placeholder?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
-  style: Object;
+  style: object;
 }
 
 const BorderlessInput: React.FC<BorderlessInputProps> = ({
   placeholder,
+  defaultValue = "",
   onChange,
   style,
 }) => {
@@ -24,6 +26,7 @@ const BorderlessInput: React.FC<BorderlessInputProps> = ({
   return (
     <input
       type="text"
+      defaultValue={defaultValue}
       value={value}
       placeholder={placeholder}
       onChange={handleChange}

@@ -1,4 +1,4 @@
-import { Fragment, SetStateAction, useState } from "react";
+import { Fragment, SetStateAction, useEffect, useState } from "react";
 import { FiPhone, FiMail, FiLink } from "react-icons/fi";
 import A4Page from "../components/a4Page/A4Page";
 import MainNav from "../components/sideNav/SideNav";
@@ -11,13 +11,16 @@ import {
   rightColumnState,
   totalColumns,
 } from "@/recoil/sectionsAtoms";
-import { styles } from "../styles/index.style";
+import { fieldsStyles } from "../styles/fileds.style";
+import useExportAtomsAsJson from "@/recoil/atoms";
 
 const HomePage = () => {
   const [bgImg, setBgImg] = useState("");
   const [rightColumnContent] = useRecoilState(rightColumnState);
   const [leftColumnContent] = useRecoilState(leftColumnState);
   const [totalColumnCount] = useRecoilState(totalColumns);
+
+  console.log(useExportAtomsAsJson());
 
   const isDoubleColumn = totalColumnCount === 2;
 
@@ -46,17 +49,11 @@ const HomePage = () => {
             >
               <ContentEditableWithPlaceholder
                 placeholder="Your Name"
-                style={{
-                  background: "transparent",
-                  border: "none",
-                  outline: "none",
-                  fontSize: "2rem",
-                  fontWeight: "bold",
-                }}
+                style={fieldsStyles.nameStyle}
               />
               <ContentEditableWithPlaceholder
                 placeholder="Occupation"
-                style={styles.occupationStyle}
+                style={fieldsStyles.occupationStyle}
               />
             </div>
             <div
@@ -78,7 +75,7 @@ const HomePage = () => {
                 <FiPhone />
                 <ContentEditableWithPlaceholder
                   placeholder="xxx-xxx-xxx"
-                  style={styles.headerItems}
+                  style={fieldsStyles.headerItems}
                 />
               </span>
               <span
@@ -91,7 +88,7 @@ const HomePage = () => {
                 <FiMail />{" "}
                 <ContentEditableWithPlaceholder
                   placeholder="joe@email.com"
-                  style={styles.headerItems}
+                  style={fieldsStyles.headerItems}
                 />
               </span>
               <span
@@ -104,7 +101,7 @@ const HomePage = () => {
                 <FiLink />{" "}
                 <ContentEditableWithPlaceholder
                   placeholder="Website"
-                  style={styles.headerItems}
+                  style={fieldsStyles.headerItems}
                 />
               </span>
             </div>

@@ -1,7 +1,7 @@
 import { useRecoilValue } from "recoil";
 import { combinedAtomsSelector } from "./combinedAtomsSelector";
 
-function useExportAtomsAsJson() {
+export default function useExportAtomsAsJson() {
   const combinedAtoms = useRecoilValue(combinedAtomsSelector);
-  return JSON.stringify(combinedAtoms);
+  return combinedAtoms;
 }

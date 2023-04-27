@@ -1,4 +1,4 @@
-export const styles = {
+export const fieldsStyles = {
   nameStyle: {
     background: 'transparent',
     border: 'none',
@@ -13,17 +13,19 @@ export const styles = {
     fontSize: '1.25rem',
     fontWeight: 'bold'
   },
-  occupationStyleInput: {
-    background: 'transparent',
-    border: 'none',
-    outline: 'none'
-  },
   headerItems: {
     marginLeft: '0.5rem',
     background: 'transparent',
     border: 'none',
     outline: 'none',
     fontSize: '1rem'
+  },
+  sectionStyle: {
+    background: 'transparent',
+    border: 'none',
+    outline: 'none',
+    fontSize: '1.25rem',
+    fontWeight: 'bold'
   },
   colorCirclesStyle: {
     borderRadius: '50%',
